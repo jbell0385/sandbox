@@ -1,0 +1,15 @@
+<!==posts[{title:string,author:string}] ==>
+
+<% include partials/header %>
+
+<h1>The Posts Page</h1>
+
+<%posts.forEach((post,index)=>{%>
+    <li><%=post["title"]%> - <strong><%=post["author"] %></strong></li>
+<%})%>
+
+<% include partials/footer %>
+    
+
+
+
