@@ -1,10 +1,30 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
+var express     = require("express"),
+    mongoose    = require("mongoose"),
+    bodyParser  = require("body-parser");
 
+mongoose.connect("mongodb://localhost/yelp_camp");
+var app = express();
 app.use(bodyParser.urlencoded({extended:true}))
 app.set('view engine',"ejs");
 
+var campgroundSchema = new mongoose.Schema({
+    name:String,
+    image:String
+});
+
+var Campground = mongoose.model("Campground",campgroundSchema);
+
+Campground.create({
+    name:"Salmon Creek",
+    image:"http://haulihuvila.com/wp-content/uploads/2012/09/hauli-huvila-campgrounds-lg.jpg"
+}, (err,campground)=>{
+    if(err){
+        console.log(err)
+    }else{
+        console.log("new campground...");
+        console.log(campground);
+    }
+})
 
 var campgrounds = [
         {name:"Salmon Creek", image:"http://haulihuvila.com/wp-content/uploads/2012/09/hauli-huvila-campgrounds-lg.jpg"},
@@ -35,6 +55,6 @@ app.get("/campgrounds/new",(req,res)=>{
     res.render("new.ejs");
 })
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(8888, function(){
     console.log("Yelp Camp Server has started");
 })
