@@ -26,19 +26,21 @@ Campground.create({
     }
 })
 
-var campgrounds = [
-        {name:"Salmon Creek", image:"http://haulihuvila.com/wp-content/uploads/2012/09/hauli-huvila-campgrounds-lg.jpg"},
-        {name:"Big Bear",image:"http://www.chippewalanding.com/images/sized%20280/campgrounds-campsite.jpg"},
-        {name:"Little Bear",image:"https://www.fs.usda.gov/Internet/FSE_MEDIA/stelprdb5306226.jpg"}
-    ]
 
 app.get("/",(req,res)=>{
     res.render("landing");
 })
 
 app.get("/campgrounds", (req,res)=>{
-    
-    res.render("campgrounds",{campgrounds:campgrounds});
+    //Get all Campgrounds from db
+    Campground.find({},(err,campgrounds){
+        if(err){
+            console.log(err);
+        }else{
+            
+        }
+    })
+    //res.render("campgrounds",{campgrounds:campgrounds});
 })
 
 app.post("/campgrounds", (req,res)=>{
