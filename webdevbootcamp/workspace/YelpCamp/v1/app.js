@@ -31,6 +31,7 @@ app.get("/",(req,res)=>{
     res.render("landing");
 })
 
+//Campground route.
 app.get("/campgrounds", (req,res)=>{
     //Get all Campgrounds from db
     Campground.find({},(err,campgrounds){
