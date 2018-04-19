@@ -1,4 +1,5 @@
 var bodyParser  = require("body-parser"),
+    methodOverride = require("method-override")
     mongoose    = require("mongoose"),
     express     = require("express"),
     app         = express();
@@ -8,6 +9,7 @@ app.use(express.static("public"));
 app.use(express.static("node_modules/semantic-ui/dist"));
 app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(methodOverride("_method"));
 
 //Mongoose/model config
 var mongoDB = 'mongodb://localhost/RESTfulBlogApp';
@@ -70,6 +72,32 @@ app.get("/blogs/:id", (req,res)=>{
         }
     })
 })
+
+//Edit Route
+app.get("/blogs/:id/edit",(req,res)=>{
+    Blog.findById(req.params.id, (err,foundBlog)=>{
+        if(err){
+            res.redirect("/blogs")
+        }else{
+            res.render("edit",{blog:foundBlog});
+        }
+    }) 
+})
+
+
+//Update Route
+app.put("/blogs/:id", (req,res)=>{
+    Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err,updatedBlog)=>{
+        if(err){
+            res.redirect("/blogs/"+req.params.id+"/edit");
+        }else{
+            res.redirect("/blogs/"+req.params.id);
+        }
+    })
+})
+
+//Destroy Route
+
 
 app.listen(8888, function (){
     console.log("Server is running");
