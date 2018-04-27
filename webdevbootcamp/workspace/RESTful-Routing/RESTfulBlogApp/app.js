@@ -2,6 +2,7 @@ var bodyParser  = require("body-parser"),
     methodOverride = require("method-override")
     mongoose    = require("mongoose"),
     express     = require("express"),
+    expressSanitizer = require("express-sanitizer"),
     app         = express();
 
 //App config
@@ -9,6 +10,7 @@ app.use(express.static("public"));
 app.use(express.static("node_modules/semantic-ui/dist"));
 app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(expressSanitizer());
 app.use(methodOverride("_method"));
 
 //Mongoose/model config
@@ -52,6 +54,7 @@ app.get("/blogs/new", (req,res)=>{
 
 //Create Route
 app.post("/blogs", (req,res)=>{
+    req.body.blog.body = req.sanitize(req.body.blog.body);
     Blog.create(req.body.blog, (err, newBlog)=>{
         if(err){
             console.log(err);
@@ -87,6 +90,7 @@ app.get("/blogs/:id/edit",(req,res)=>{
 
 //Update Route
 app.put("/blogs/:id", (req,res)=>{
+    req.body.blog.body = req.sanitize(req.body.blog.body);
     Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err,updatedBlog)=>{
         if(err){
             res.redirect("/blogs/"+req.params.id+"/edit");
@@ -97,7 +101,16 @@ app.put("/blogs/:id", (req,res)=>{
 })
 
 //Destroy Route
-
+app.delete("/blogs/:id", (req,res)=>{
+    Blog.findByIdAndRemove(req.params.id, (err)=>{
+        if(err){
+            res.redirect("/blogs");
+        }else{
+            res.redirect("/blogs");
+        }
+        
+    })
+})
 
 app.listen(8888, function (){
     console.log("Server is running");
