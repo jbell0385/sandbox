@@ -1,19 +1,14 @@
 var express     = require("express"),
     mongoose    = require("mongoose"),
-    bodyParser  = require("body-parser");
+    bodyParser  = require("body-parser"),
+    Campground = require("./models/campground")
 
 mongoose.connect("mongodb://localhost/yelp_camp");
 var app = express();
 app.use(bodyParser.urlencoded({extended:true}))
 app.set('view engine',"ejs");
 
-var campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description:String
-})
 
-var Campground = mongoose.model("Campground", campgroundSchema);
 
 // Campground.create(
 //     {
