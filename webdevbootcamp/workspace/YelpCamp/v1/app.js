@@ -2,6 +2,7 @@ var express     = require("express"),
     mongoose    = require("mongoose"),
     bodyParser  = require("body-parser"),
     Campground = require("./models/campground"),
+    Comment = require("./models/comment"),
     seedDB      = require("./seeds");
 
 
@@ -11,7 +12,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.set('view engine',"ejs");
 
 //Seed Database
-//seedDB();
+// seedDB();
 
 //home path
 app.get("/",(req,res)=>{
@@ -65,17 +66,38 @@ app.get("/campgrounds/:id", (req,res)=>{
 })
 
 //Comment Routes
-app.get("/campgrounds/:id/comments/new",(req,res)=>{
-    Campground.findById(req.params.id, (err,foundCampground)=>{
-        res.render("comments/new",{campground:foundCampground});
-    })
+app.get("/campgrounds/:id/comments/new", (req,res)=>{
+    Campground.findById(req.params.id,(err,foundCampground)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.render("comments/new",{campground:foundCampground});
+        }
+    })  
 })
 
-app.post("/campgrounds/:id/comments",(req,res)=>{
+app.post("/campgrounds/:id/comments", (req,res)=>{
     var commentText = req.body.commentText;
+    console.log(commentText)
     var author = req.body.author;
-    console.log(commentText, author);
-    res.redirect(`/campgrounds/${req.params.id}`);
+    var newComment = {text:commentText, author:author};
+    Comment.create(newComment, (err,newComment)=>{
+        if(err){
+            console.log(err);
+            res.redirect("/campgrounds/:id/comments/new");
+        }else{
+            Campground.findById(req.params.id,(err,foundCampground)=>{
+                if(err){
+                    console.log(err);
+                    res.redirect("/campgrounds/:id/comments/new");
+                }else{
+                    foundCampground.comments.push(newComment);
+                    foundCampground.save(err=>console.log(err));
+                    res.redirect("/campgrounds/" + req.params.id);
+                }
+            })
+        }
+    })
 })
 
 app.listen(8888, function(){

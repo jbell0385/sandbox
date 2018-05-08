@@ -1,5 +1,4 @@
 
-
 var mongoose=require("mongoose");
 
 var campgroundSchema = new mongoose.Schema({
