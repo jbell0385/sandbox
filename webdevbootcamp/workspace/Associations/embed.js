@@ -54,20 +54,20 @@ var User = mongoose.model("User", userSchema);
 //     }
 // })
 
-User.findOne({name:"Charlie Brown"},(err,user)=>{
-    if(err){
-        console.log(err);
-    }else{
-        user.posts.push({
-            title: "3 things I really hate",
-            content: "Voldemort. Voldemort. Voldemort."
-        });
-        user.save((err,user)=>{
-            if(err){
-                console.log(err);
-            }else{
-                console.log(user);
-            }
-        })
-    }
-})
+// User.findOne({name:"Charlie Brown"},(err,user)=>{
+//     if(err){
+//         console.log(err);
+//     }else{
+//         user.posts.push({
+//             title: "3 things I really hate",
+//             content: "Voldemort. Voldemort. Voldemort."
+//         });
+//         user.save((err,user)=>{
+//             if(err){
+//                 console.log(err);
+//             }else{
+//                 console.log(user);
+//             }
+//         })
+//     }
+// })
