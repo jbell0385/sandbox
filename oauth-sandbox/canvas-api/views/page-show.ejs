@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+
+  </head>
+  <body>
+    <h1><%=page.title%></h1>
+    <strong><p>Last Edited By:</p></strong>
+    <p><%= page.last_edited_by.display_name %></p>
+    <p><%- page.body %></p>
+    <p>HTML URL:</p> 
+    <p><%= page.html_url %></p>
+  </body>
+</html>

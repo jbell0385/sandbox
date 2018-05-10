@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+
+  </head>
+  <body>
+    <ul>
+      <% pages.forEach((page)=>{ %>
+        <a href="/courses/<%= courseId %>/pages/<%= page.url %>"><li><%=page.title%></li></a>
+      <% }) %>
+    </ul>
+  </body>
+</html>
