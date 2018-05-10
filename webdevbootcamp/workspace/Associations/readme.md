@@ -9,3 +9,7 @@ User
 Post
 
 ##Referencing Data
+
+##Module.Exports
+*Introduce Module.exports
+*Move our models into seperate files

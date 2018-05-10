@@ -77,10 +77,7 @@ app.get("/campgrounds/:id/comments/new", (req,res)=>{
 })
 
 app.post("/campgrounds/:id/comments", (req,res)=>{
-    var commentText = req.body.commentText;
-    console.log(commentText)
-    var author = req.body.author;
-    var newComment = {text:commentText, author:author};
+    var newComment = req.body.comment;
     Comment.create(newComment, (err,newComment)=>{
         if(err){
             console.log(err);
