@@ -1,0 +1,25 @@
+<% include ../partials/heading %>
+
+<div class="container">   
+    <h1>Sign up with your username</h1>
+
+    <form role='form' action="/register" method="POST" id='login-form'>
+        <div class="form-group">
+            <label for="userName">User Name</label>
+            <input type="text" class="form-control" id="userName" name="username" placeholder="Enter user name">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <!-- End body container -->
+    <a href="/register">Sign Up!</a>
+    <a href="/logout">Logout</a>
+    <a href="/login">Login</a>
+</div>
+
+<% include ../partials/footer %>
+   
