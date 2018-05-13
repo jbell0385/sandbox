@@ -11,13 +11,13 @@ mongoose.connect("mongodb://localhost/auth_demo_app");
 var app = express();
 
 app.set('view engine', 'ejs');
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(require('express-session')({
     secret: 'Rusty is the best and custest dog in the world',
     resave: false,
     saveUninitialized: false
 }))
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser.urlencoded({extended:true}));
 
 passport.serializeUser(User.serializeUser());
@@ -77,6 +77,8 @@ app.get('/logout', (req,res)=>{
     res.redirect('/');
 })
 
+
+//Middlewares
 function isLoggedIn(req,res,next){
     console.log(req.isAuthenticated());
     if(req.isAuthenticated()){
