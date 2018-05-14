@@ -10,12 +10,19 @@ mongoose.connect("mongodb://localhost/auth_demo_app");
 
 var app = express();
 
+<<<<<<< HEAD
+=======
+app.set('view engine', 'ejs');
+>>>>>>> a8b10ae31d47cb3e0bb80a5ed073f0400ccb6a03
 app.use(require('express-session')({
     secret: 'Rusty is the best and custest dog in the world',
     resave: false,
     saveUninitialized: false
 }))
+<<<<<<< HEAD
 app.set('view engine', 'ejs');
+=======
+>>>>>>> a8b10ae31d47cb3e0bb80a5ed073f0400ccb6a03
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -94,6 +101,8 @@ app.get('/logout', (req,res)=>{
     res.redirect('/');
 })
 
+
+//Middlewares
 function isLoggedIn(req,res,next){
     console.log(req.isAuthenticated());
     if(req.isAuthenticated()){
