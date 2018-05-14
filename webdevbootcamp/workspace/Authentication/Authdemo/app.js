@@ -10,16 +10,15 @@ mongoose.connect("mongodb://localhost/auth_demo_app");
 
 var app = express();
 
-app.set('view engine', 'ejs');
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(require('express-session')({
     secret: 'Rusty is the best and custest dog in the world',
     resave: false,
     saveUninitialized: false
 }))
+app.set('view engine', 'ejs');
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser.urlencoded({extended:true}));
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -33,7 +32,12 @@ app.get('/', (req,res)=>{
 })
 
 app.get('/secret',isLoggedIn, (req,res)=>{
-    res.render('secret');
+    if(req.isAuthenticated()){
+        res.render('secret');
+    }else{
+        res.redirect('/');
+    }
+    
 })
 
 //Auth Routes
@@ -71,6 +75,19 @@ app.post('/login', passport.authenticate('local', {
         res.redirect('/secret')
     })
 })
+
+// app.post('/login', (req,res)=>{
+//     passport.authenticate('local', (err,user)=>{
+//         console.log(user);
+//         if(err){
+//             console.log(err);
+//         }
+//         req.login(user, (err)=>{
+//             if (err) {console.log(err)};
+//             res.redirect('/secret');
+//         })
+//     })
+// })
 
 app.get('/logout', (req,res)=>{
     req.logout();
