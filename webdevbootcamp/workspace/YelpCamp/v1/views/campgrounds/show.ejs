@@ -18,23 +18,45 @@
                             <h4>$9.00/night</h4>
                         </div>
                         <h1 class="card-title"><a href="#"><%= campground.name %></a></h1>
+                        <p><em>Submitted By: <%= campground.author.username %></em></p>
+                        <% if(currentUser && campground.author.id && campground.author.id.equals(currentUser._id)){ %>
+                            <a class="btn btn-secondary btn-sm" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
+                            <form id="delete-form" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
+                                <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                            </form>
+                        <% } %>
+                        
                         <p><%= campground.description %></p>
+                        
                     </div>
                 </div>
                 <div class="card bg-light my-4">
                     <div class="card-body">
                         <div class="text-right">
-                            <a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Create Comment</a>
+                            <a class="btn btn-success btn-sm" href="/campgrounds/<%= campground._id %>/comments/new">Create Comment</a>
                         </div>
                         <hr>
                         <% campground.comments.forEach((comment)=>{ %>
                             <div class="row my-3">
                                 <div class="col-md-12">
+                                    <!-- Comment Header -->
                                     <p>
-                                        <strong><%= comment.author %></strong> 
+                                        <strong><%= comment.author.username %></strong> 
                                         <span class="float-right">10 days ago.</span>
                                     </p>
+                                    <!-- Comment Text -->
                                     <p><%= comment.text %></p>
+                                    <!-- show/hide edit/delete comment -->
+                                    <% console.log(currentUser) %>
+                                    <% console.log(comment) %>
+                                    <%if(currentUser && comment.author.id !== undefined && comment.author.id.equals(currentUser._id)){%>
+                                        <!-- Edit comment -->
+                                        <a class="btn btn-secondary btn-sm" href="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>/edit">Edit</a>
+                                        <!-- Delete Comment -->
+                                        <form style="display:inline" action="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                                            <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                        </form>
+                                    <%}%>
                                 </div>
                             </div>
                         <%})%>

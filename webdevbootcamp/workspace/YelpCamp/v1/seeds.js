@@ -19,6 +19,14 @@ var data = [{
     },
 ]
 
+// function seedDB(){
+//     Campground.remove({},(err)=>{
+//         if(err){
+//             console.log(err);
+//         }
+//     })
+// }
+
 function seedDB() {
     //Remove all Comments
     Comment.remove({}, (err) => {
@@ -58,12 +66,6 @@ function seedDB() {
             });
         }
     })
-
-
-
-
-
-
     //add some comments
 }
 

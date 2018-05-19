@@ -1,6 +1,7 @@
 var express     = require("express"),
     mongoose    = require("mongoose"),
     bodyParser  = require("body-parser"),
+    methodOverride = require('method-override'),
     passport    = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     Campground = require("./models/campground"),
@@ -15,11 +16,12 @@ var commentRoutes = require('./routes/comments'),
 //mongoose.connect("mongodb://localhost/yelp_camp");
 mongoose.connect("mongodb://jbell0385:Iatprata1)m@sandbox-shard-00-00-hygvs.mongodb.net:27017,sandbox-shard-00-01-hygvs.mongodb.net:27017,sandbox-shard-00-02-hygvs.mongodb.net:27017/test?ssl=true&replicaSet=sandbox-shard-0&authSource=admin");
 var app = express();
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(methodOverride('_method'));
 app.set('view engine',"ejs");
 app.use(express.static(__dirname + "/public"));
 
-//Seed Database
+// Seed Database
 // seedDB();
 
 //Passport Configuration
