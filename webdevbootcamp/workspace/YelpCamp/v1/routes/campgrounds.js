@@ -82,7 +82,7 @@ router.put("/:id",checkCampgroundOwnership, (req,res)=>{
 })
 
 //Destroy campground route
-router.delete('/:id', (req,res)=>{
+router.delete('/:id',checkCampgroundOwnership, (req,res)=>{
     Campground.findByIdAndRemove(req.params.id, (err)=>{
         if(err){
             res.redirect('/campgrounds/'+req.params.id);
@@ -114,7 +114,7 @@ function checkCampgroundOwnership(req,res,next){
             }
         });
     }else{
-        res.redirect('back');
+        res.redirect('/login');
     }
 }
 
