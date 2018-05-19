@@ -12,7 +12,8 @@ var commentRoutes = require('./routes/comments'),
     campgroundRoutes = require('./routes/campgrounds'),
     indexRoutes = require('./routes/index');
 
-mongoose.connect("mongodb://localhost/yelp_camp");
+//mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://jbell0385:Iatprata1)m@sandbox-shard-00-00-hygvs.mongodb.net:27017,sandbox-shard-00-01-hygvs.mongodb.net:27017,sandbox-shard-00-02-hygvs.mongodb.net:27017/test?ssl=true&replicaSet=sandbox-shard-0&authSource=admin");
 var app = express();
 app.use(bodyParser.urlencoded({extended:true}))
 app.set('view engine',"ejs");
