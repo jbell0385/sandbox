@@ -2,6 +2,7 @@ var express     = require("express"),
     mongoose    = require("mongoose"),
     bodyParser  = require("body-parser"),
     methodOverride = require('method-override'),
+    flash       = require('connect-flash'),
     passport    = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     Campground = require("./models/campground"),
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 app.set('view engine',"ejs");
 app.use(express.static(__dirname + "/public"));
+app.use(flash());
 
 // Seed Database
 // seedDB();
@@ -40,6 +42,8 @@ passport.deserializeUser(User.deserializeUser());
 //Check for the user
 app.use((req,res,next)=>{
     res.locals.currentUser = req.user;
+    res.locals.errorMessage = req.flash('error');
+    res.locals.successMessage = req.flash('success');
     next();
 })
 

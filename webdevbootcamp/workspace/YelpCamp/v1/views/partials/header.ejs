@@ -32,3 +32,14 @@
           <% } %>
       </div>
     </nav>
+
+    <% if(errorMessage.length > 0 || successMessage.length > 0){ %>
+      <div class="container">
+        <% if(errorMessage && errorMessage.length > 0){ %>  
+          <div class="alert alert-warning mb-4"><%= errorMessage %></div>
+        <% } %>
+        <% if(successMessage && successMessage.length > 0) { %>
+          <div class="alert alert-success mb-4"><%= successMessage %></div>
+        <% } %>
+      </div>
+    <% } %>

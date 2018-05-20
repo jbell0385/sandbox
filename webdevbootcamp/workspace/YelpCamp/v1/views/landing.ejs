@@ -1,14 +1,26 @@
 <%include partials/header%>
 
-
-    <div class="row">
-        <div class="col">
-            <h1>The Landing Page</h1>
+<div class="container" id="landing-container">
+    <div class="row" id="landing-header">
+        <div class="col" id="landing-text">
+            <h1>Yelp Camp</h1>
     
-            <p>Welcome to Yelp Camp</p>
+            <p>Find your perfect campsite</p>
             
-            <a href="/campgrounds">View all campgrounds</a>
+            <a class="btn btn-primary" href="/campgrounds">View all campgrounds</a>
         </div>
     </div>
+    <ul class="slideshow">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+<script>
+    var bodyEl = document.querySelector("body");
+    bodyEl.classList.add('landing-bg');
+</script>
 
 <% include partials/footer %>

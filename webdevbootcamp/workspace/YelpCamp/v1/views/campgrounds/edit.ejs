@@ -12,6 +12,10 @@
                     <input id="campName" class="form-control" type='text' name="campground[name]" value="<%= campground.name %>">
                 </div>
                 <div class="form-group">
+                        <label for="campPrice">Price:</label>
+                        <input id="campPrice" class="form-control" type='number' name="campground[price]" placeholder='Price of Campground' value="<%=campground.price%>" min="0.01" step="0.01">
+                    </div>
+                <div class="form-group">
                     <label for="campImage">Camp Image:</label>
                     <input id="campImage" class="form-control" type="text" name="campground[image]" value="<%=campground.image%>">
                 </div>
