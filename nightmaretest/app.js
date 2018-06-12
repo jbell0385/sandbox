@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const Nightmare = require('nightmare');
+const nightmare = Nightmare({show:true});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -38,4 +40,14 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// nightmare.goto('https://www.google.com')
+//   .wait('input[value="Google Search"]')
+//   .evaluate(()=>{
+//     return document.querySelector('input[value="Google Search"]').value;
+//   })
+//   .end()
+//   .then(function(result){
+//     console.log(result);
+//   })
+//   .catch(error=>console.log(error))
 module.exports = app;

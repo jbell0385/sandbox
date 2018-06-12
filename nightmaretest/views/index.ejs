@@ -6,6 +6,10 @@
   </head>
   <body>
     <h1></h1>
-    <p>Welcome to </p>
+    
+      <%htmlData.forEach((item)=>{%>
+        <p><%=item.innerHTML%></p>
+      <%})%>
+    
   </body>
 </html>
